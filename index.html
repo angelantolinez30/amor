@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Especiales</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #e84393;
+            margin-bottom: 20px;
+        }
+        
+        .mensaje {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 25px 0;
+            min-height: 100px;
+        }
+        
+        .fecha {
+            color: #888;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .corazon {
+            color: #e84393;
+            font-size: 24px;
+            margin: 0 5px;
+        }
+        
+        button {
+            background-color: #e84393;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #fd79a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Para mi amor <span class="corazon">❤</span></h1>
+        <div id="mensaje" class="mensaje">Cargando mensaje del día...</div>
+        <div class="fecha" id="fecha"></div>
+        <button onclick="mostrarMensaje()">Actualizar mensaje</button>
+    </div>
+
+    <script>
+        // Array con mensajes para cada día de la semana
+        const mensajes = [
+            "Hoy es lunes, y aunque es el inicio de la semana, mi amor por ti no tiene inicio ni fin. Eres lo mejor que me pasa cada día.",
+            "Martes, otro día para recordarte lo especial que eres para mí. Eres la razón por la que sonrío sin motivo aparente.",
+            "Miércoles, mitad de semana pero mi amor por ti está completo. No hay nada que me haga más feliz que tenerte en mi vida.",
+            "Jueves, casi viernes y casi verte. Ansío el momento en que pueda abrazarte y decirte lo mucho que te amo.",
+            "Viernes por fin! Y aunque todos celebran el fin de la semana, yo celebro cada día a tu lado. Eres mi mayor bendición.",
+            "Sábado, día para disfrutar. Me encantaría pasar todo el día contigo, haciendo cualquier cosa, porque contigo todo es especial.",
+            "Domingo, día de descanso pero mi corazón nunca descansa de amarte. Eres lo primero en lo que pienso al despertar."
+        ];
+        
+        // Mensajes especiales para fechas específicas
+        const mensajesEspeciales = {
+            "02-14": "¡Feliz Día de San Valentín! Mi corazón es tuyo hoy y siempre. Te amo más que nunca.",
+            "12-25": "¡Feliz Navidad! El mejor regalo bajo el árbol de navidad eres tú en mi vida.",
+            "01-01": "¡Feliz Año Nuevo! Contigo quiero pasar todos los años que vienen. Eres mi mayor deseo.",
+            // Agrega más fechas especiales (formato MM-DD) y sus mensajes
+            "09-15": "Feliz aniversario de nuestro primer beso. Nunca olvidaré ese momento mágico."
+        };
+        
+        function mostrarMensaje() {
+  const ahora = new Date();
+  const diaSemana = ahora.getDay(); // 0 (domingo) a 6 (sábado)
+  const mes = ahora.getMonth() + 1;
+  const dia = ahora.getDate();
+  const fechaStr = `${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+
+  const elementoMensaje = document.getElementById('mensaje');
+  const elementoFecha = document.getElementById('fecha');
+
+  const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  elementoFecha.textContent = ahora.toLocaleDateString('es-ES', opciones);
+
+  if (mensajesEspeciales[fechaStr]) {
+    elementoMensaje.innerHTML = `<strong>${mensajesEspeciales[fechaStr]}</strong>`;
+    return;
+  }
+
+  let indiceMensaje = diaSemana - 1;
+  if (indiceMensaje < 0) indiceMensaje = 6;
+
+  elementoMensaje.textContent = mensajes[indiceMensaje];
+}
+        
+        
+        // Mostrar mensaje al cargar la página
+        window.onload = mostrarMensaje;
+    </script>
+</body>
+</html>
